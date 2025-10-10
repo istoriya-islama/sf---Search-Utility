@@ -31,9 +31,9 @@ For convenience, add the directory with the executable to your PATH or copy `sf.
 
 ## 🔧 Usage
 
-\![Search example](screenshots/scren 1.png)
-\![Search example](screenshots/Scren 2.png)
-\![Search example](screenshots/Scren 3.png)
+\![Search example](screenshots/scren1.png)
+\![Search example](screenshots/scren2.png)
+\![Search example](screenshots/scren3.png)
 
 ### Basic Syntax
 
