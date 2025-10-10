@@ -15,12 +15,12 @@ A fast and convenient command-line utility for searching files and directories, 
 ### From Source
 
 ```bash
-git clone <your-repository>
+git clone [<your-repository>](https://github.com/istoriya-islama/sf---Search-File.git)
 cd sf
 cargo build --release
 ```
 
-The compiled binary will be located at `target/release/sf.exe` (Windows) or `target/release/sf` (Linux/macOS).
+The compiled binary will be located at `sf.exe` (Windows) or `sf` (Linux/macOS).
 
 ### Adding to PATH
 
