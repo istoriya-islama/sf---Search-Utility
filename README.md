@@ -15,7 +15,7 @@ A fast and convenient command-line utility for searching files and directories, 
 ### From Source
 
 ```bash
-git clone [<your-repository>](https://github.com/istoriya-islama/sf---Search-File.git)
+git clone https://github.com/istoriya-islama/sf---Search-Utility.git
 cd sf
 cargo build --release
 ```
