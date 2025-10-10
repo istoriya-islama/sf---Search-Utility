@@ -1,5 +1,8 @@
 # sf - Simple File and Folder Search Utility
 
+![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)
+![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)
+
 A fast and convenient command-line utility for searching files and directories, written in Rust.
 
 ## 🚀 Features
