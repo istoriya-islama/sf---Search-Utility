@@ -104,6 +104,7 @@ sf -d -i -s "/home/user" -r 2 "downloads"  # Complex search
 - [clap](https://github.com/clap-rs/clap) - Command-line argument parsing
 - [walkdir](https://github.com/BurntSushi/walkdir) - Recursive directory traversal
 - [globset](https://github.com/BurntSushi/ripgrep/tree/master/crates/globset) - Glob pattern support
+- [colored](https://github.com/mackwic/colored) - Terminal color output
 
 ## 📄 License
 

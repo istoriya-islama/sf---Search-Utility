@@ -1,10 +1,11 @@
 [package]
 name = "sf"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 license = "GPL-3.0"
 
 [dependencies]
 clap = { version = "4.4", features = ["derive"] }
+colored = "3.0.0"
 globset = "0.4.16"
 walkdir = "2.5.0"

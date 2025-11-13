@@ -2,6 +2,7 @@ use clap::Parser;
 use walkdir::WalkDir;
 use globset::{Glob, GlobMatcher};
 use std::time::Instant;
+use colored::Colorize;
 
 //Простая утилита поиска файлов и папок (sf)
 #[derive(Parser)]
@@ -44,6 +45,14 @@ fn matches(name: &str, args: &Args, matcher: &Option<GlobMatcher>) -> bool {
 }
 
 fn main() {
+    // Включаем поддержку ANSI цветов
+    #[cfg(windows)]
+    {
+        if !colored::control::set_virtual_terminal(true).is_ok() {
+            colored::control::set_override(true);
+        }
+    }
+
     let start_time = Instant::now();
     let args = Args::parse();
     let mut count = 0;
@@ -75,11 +84,14 @@ fn main() {
         let name = entry.file_name().to_string_lossy();
 
         if matches(&name, &args, &matcher) {
-            println!("{}", entry.path().display());
+            // Убираем \\?\ префикс для Windows
+            let path_str = entry.path().display().to_string();
+            let clean_path = path_str.strip_prefix(r"\\?\").unwrap_or(&path_str);
+            println!("{}", clean_path.blue().bold());
             count += 1;
         }
     }
-    
+
     let elapsed = start_time.elapsed();
-    println!("\nFound: {} in {:.2?}", count, elapsed);
+    println!("{} {} {} {:.2?}", "\nFound:".green(), count, "in".green(), elapsed);
 }
