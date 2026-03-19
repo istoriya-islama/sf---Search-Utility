@@ -12,6 +12,11 @@ A fast and convenient command-line utility for searching files and directories, 
 - Case-sensitive and case-insensitive search
 - Configurable recursion depth
 - Custom starting directory for search
+- Filter by file size (`+100M`, `-1G`, `500K`)
+- Filter by modification date (`-7` days, `+30` days)
+- Exclude paths from search (`--exclude node_modules`)
+- JSON output for scripting (`--json`)
+- Statistics mode with total size (`--stats`)
 
 ## 📦 Installation
 
@@ -73,11 +78,43 @@ sf -r 2 "config"               # Search only up to 2 levels deep
 sf -r 0 "readme.md"            # Search only in current directory
 ```
 
+**Filtering by size:**
+```bash
+sf -g "*.mp4" --size +100M     # Find videos larger than 100 MB
+sf -g "*.log" --size -1M       # Find logs smaller than 1 MB
+sf -g "*.iso" --size +4G       # Find ISOs larger than 4 GB
+```
+
+**Filtering by modification date:**
+```bash
+sf -g "*.log" --mtime -7       # Modified in the last 7 days
+sf -g "*.bak" --mtime +30      # Older than 30 days
+```
+
+**Excluding paths:**
+```bash
+sf -g "*.js" --exclude node_modules          # Skip node_modules
+sf -g "*.rs" --exclude target --exclude .git  # Skip multiple dirs
+```
+
+**JSON output:**
+```bash
+sf -g "*.rs" --json            # Output results as JSON
+sf -g "*.rs" --json | jq '.count'  # Count via jq
+```
+
+**Statistics mode:**
+```bash
+sf -g "*.jpg" --stats          # Show file sizes + total
+sf -g "*.mp4" --size +100M --stats  # Big videos with total size
+```
+
 **Combining options:**
 ```bash
-sf -d -i -s "C:\Projects" "test"           # Folders with "test", case-insensitive
-sf -g -r 3 "*.json"                        # JSON files up to 3 levels deep
-sf -d -i -s "/home/user" -r 2 "downloads"  # Complex search
+sf -d -i -s "C:\Projects" "test"                    # Folders with "test", case-insensitive
+sf -g -r 3 "*.json"                                  # JSON files up to 3 levels deep
+sf -g "*.log" --mtime -7 --exclude node_modules      # Recent logs, skip node_modules
+sf -g "*.mp4" --size +500M --stats --json            # Big videos, stats, JSON output
 ```
 
 ## ⚙️ Options
@@ -89,6 +126,11 @@ sf -d -i -s "/home/user" -r 2 "downloads"  # Complex search
 | `-s <PATH>` | `--start <PATH>` | Starting directory for search (default `.`) |
 | `-r <NUM>` | `--max-depth <NUM>` | Maximum recursion depth (-1 = unlimited) |
 | `-g` | `--glob` | Use glob patterns (`*`, `?`, `[]`) |
+| | `--size <FILTER>` | Filter by size: `+100M` (greater), `-1G` (less), `500K` (exact) |
+| | `--mtime <DAYS>` | Filter by modification date: `-7` (last 7 days), `+30` (older than 30 days) |
+| | `--exclude <STR>` | Exclude paths containing this substring (repeatable) |
+| | `--json` | Output results as JSON |
+| | `--stats` | Show file sizes and total size summary |
 | `-h` | `--help` | Show help information |
 | `-V` | `--version` | Show version |
 
@@ -98,6 +140,9 @@ sf -d -i -s "/home/user" -r 2 "downloads"  # Complex search
 - Default recursion depth: `-1` (unlimited)
 - To use glob patterns, you must specify the `-g` flag
 - In PowerShell/CMD, it's recommended to use quotes for patterns with spaces
+- Size suffixes: `K` / `KB`, `M` / `MB`, `G` / `GB`
+- `--exclude` can be specified multiple times to skip several paths
+- `--json` and `--stats` can be combined freely
 
 ## 🛠️ Dependencies
 
@@ -105,6 +150,7 @@ sf -d -i -s "/home/user" -r 2 "downloads"  # Complex search
 - [walkdir](https://github.com/BurntSushi/walkdir) - Recursive directory traversal
 - [globset](https://github.com/BurntSushi/ripgrep/tree/master/crates/globset) - Glob pattern support
 - [colored](https://github.com/mackwic/colored) - Terminal color output
+- [serde](https://github.com/serde-rs/serde) + [serde_json](https://github.com/serde-rs/json) - JSON serialization
 
 ## 📄 License
 
